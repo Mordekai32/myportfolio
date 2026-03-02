@@ -44,13 +44,14 @@ export default function Navbar() {
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700&display=swap');
 
         :root {
-          --primary: #0ea5e9;
-          --primary-dark: #0284c7;
-          --accent: #06b6d4;
-          --background: #0f172a;
-          --surface: #1e293b;
-          --text-primary: #f1f5f9;
-          --text-secondary: #cbd5e1;
+          --primary: #ff006e;
+          --primary-light: #ff1493;
+          --accent: #00f5ff;
+          --secondary: #8338ec;
+          --background: #0a0e27;
+          --surface: #16213e;
+          --text-primary: #ffffff;
+          --text-secondary: #b0b8d4;
         }
 
         @keyframes shimmer {
@@ -138,7 +139,7 @@ export default function Navbar() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, var(--primary), var(--accent));
+          background: linear-gradient(135deg, #ff006e, #00f5ff);
           border-radius: 50px;
           z-index: -1;
           opacity: 0;
@@ -153,7 +154,7 @@ export default function Navbar() {
           content: '';
           position: absolute;
           inset: -2px;
-          background: linear-gradient(135deg, var(--primary), var(--accent));
+          background: linear-gradient(135deg, #ff006e, #00f5ff);
           border-radius: 50px;
           z-index: -2;
           opacity: 0;
@@ -187,13 +188,13 @@ export default function Navbar() {
         {/* Animated background gradient */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div 
-            className="absolute top-1/2 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full mix-blend-screen blur-3xl"
+            className="absolute top-1/2 left-1/4 w-96 h-96 bg-pink-500/15 rounded-full mix-blend-screen blur-3xl"
             style={{
               transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
               transition: 'transform 0.3s ease-out',
             }}
           />
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500/5 rounded-full mix-blend-screen blur-3xl animate-pulse" />
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-400/10 rounded-full mix-blend-screen blur-3xl animate-pulse" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-4 relative z-10">
@@ -201,10 +202,10 @@ export default function Navbar() {
             {/* Logo */}
             <Link to="/" className="group relative">
               <div className="flex flex-col gap-0.5">
-                <span className="logo-text text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-sky-400 to-cyan-400 transition-all duration-300 group-hover:from-sky-200 group-hover:via-sky-300 group-hover:to-cyan-300">
+                <span className="logo-text text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-500 to-cyan-400 transition-all duration-300 group-hover:from-pink-300 group-hover:via-pink-400 group-hover:to-cyan-300">
                   UKOBUKEYE
                 </span>
-                <span className="text-xs font-light tracking-widest text-sky-500/60 uppercase transition-colors duration-300 group-hover:text-sky-400 font-mono">
+                <span className="text-xs font-light tracking-widest text-pink-500/60 uppercase transition-colors duration-300 group-hover:text-pink-400 font-mono">
                   M.Mordekai
                 </span>
               </div>
@@ -220,7 +221,7 @@ export default function Navbar() {
                   end={item.end}
                   className={({ isActive }) =>
                     `nav-link text-sm tracking-wide transition-colors duration-300 ${
-                      isActive ? 'text-sky-300 font-semibold' : 'text-slate-400 hover:text-sky-300'
+                      isActive ? 'text-pink-400 font-semibold' : 'text-slate-300 hover:text-cyan-400'
                     }`
                   }
                 >
@@ -245,7 +246,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative z-20 p-2 text-sky-400 hover:text-sky-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+              className="md:hidden relative z-20 p-2 text-pink-400 hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
               aria-label="Toggle menu"
               aria-expanded={isOpen}
             >
@@ -270,8 +271,8 @@ export default function Navbar() {
                     className={({ isActive }) =>
                       `mobile-nav-item block px-4 py-3 rounded-lg font-mono text-sm transition-all duration-300 ${
                         isActive
-                          ? 'bg-sky-500/20 text-sky-300 border-l-2 border-sky-400 pl-3'
-                          : 'text-slate-300 hover:bg-sky-500/10 hover:text-sky-300'
+                          ? 'bg-pink-500/20 text-pink-400 border-l-2 border-pink-400 pl-3'
+                          : 'text-slate-300 hover:bg-pink-500/10 hover:text-cyan-400'
                       }`
                     }
                   >
@@ -281,7 +282,7 @@ export default function Navbar() {
                 <Link
                   to="/hire-me"
                   onClick={() => setIsOpen(false)}
-                  className="mobile-nav-item block w-full mt-4 px-4 py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-sm font-semibold rounded-lg text-center hover:from-sky-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-sky-500/30"
+                  className="mobile-nav-item block w-full mt-4 px-4 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 text-white text-sm font-semibold rounded-lg text-center hover:from-pink-600 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/30"
                 >
                   Hire Me
                 </Link>
