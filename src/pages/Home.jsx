@@ -1,7 +1,35 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import SkillBadge from '../components/SkillBadge';
 import profileImage from '../assets/a.jpg';
+
+// SkillBadge Component
+function SkillBadge({ children, icon }) {
+  return (
+    <div
+      className="px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2 transition-all duration-300 cursor-pointer"
+      style={{
+        backgroundColor: 'rgba(79,70,229,0.15)',
+        color: '#4F46E5',
+        border: '1px solid rgba(79,70,229,0.3)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(79,70,229,0.25)';
+        e.currentTarget.style.borderColor = '#4F46E5';
+        e.currentTarget.style.boxShadow = '0 4px 15px rgba(79,70,229,0.2)';
+        e.currentTarget.style.transform = 'translateY(-2px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(79,70,229,0.15)';
+        e.currentTarget.style.borderColor = 'rgba(79,70,229,0.3)';
+        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.transform = 'translateY(0)';
+      }}
+    >
+      {icon && <span className="text-lg">{icon}</span>}
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [displayName, setDisplayName] = useState('');
@@ -35,7 +63,6 @@ export default function Home() {
       />
 
       <div className="max-w-5xl w-full relative z-10 text-center">
-
         {/* Profile Image */}
         <div className="mb-8 flex justify-center">
           <div
@@ -102,14 +129,47 @@ export default function Home() {
           integration.
         </p>
 
-        {/* Skill badges */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          <SkillBadge>React &amp; Next.js</SkillBadge>
-          <SkillBadge>Smart Contracts (Solidity)</SkillBadge>
-          <SkillBadge>Node.js</SkillBadge>
-          <SkillBadge>PostgreSQL</SkillBadge>
-          <SkillBadge>AWS Cloud</SkillBadge>
-          <SkillBadge>Tailwind CSS</SkillBadge>
+        {/* Skill badges - massively expanded with more databases */}
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {/* Frontend & Core */}
+          <SkillBadge icon="⚛️">React & Next.js</SkillBadge>
+          <SkillBadge icon="📘">TypeScript</SkillBadge>
+          <SkillBadge icon="🎨">Tailwind CSS</SkillBadge>
+          <SkillBadge icon="🎭">Redux</SkillBadge>
+          <SkillBadge icon="🌊">GraphQL</SkillBadge>
+
+          {/* Backend & Databases */}
+          <SkillBadge icon="💚">Node.js</SkillBadge>
+          <SkillBadge icon="🐍">Python</SkillBadge>
+          <SkillBadge icon="💪">Go</SkillBadge>
+          
+          {/* Databases - expanded */}
+          <SkillBadge icon="🗄️">PostgreSQL</SkillBadge>
+          <SkillBadge icon="🍃">MongoDB</SkillBadge>
+          <SkillBadge icon="⚡">Redis</SkillBadge>
+          <SkillBadge icon="🐬">MySQL</SkillBadge>
+          <SkillBadge icon="📦">DynamoDB</SkillBadge>
+          <SkillBadge icon="🔮">Cassandra</SkillBadge>
+          <SkillBadge icon="🔍">Elasticsearch</SkillBadge>
+
+          {/* DevOps & Cloud */}
+          <SkillBadge icon="🐳">Docker</SkillBadge>
+          <SkillBadge icon="☸️">Kubernetes</SkillBadge>
+          <SkillBadge icon="☁️">AWS Cloud</SkillBadge>
+          <SkillBadge icon="🏗️">Terraform</SkillBadge>
+          <SkillBadge icon="🔁">Jenkins</SkillBadge>
+          <SkillBadge icon="🔄">CI/CD Pipelines</SkillBadge>
+
+          {/* Monitoring & Infra */}
+          <SkillBadge icon="📊">Prometheus</SkillBadge>
+          <SkillBadge icon="📈">Grafana</SkillBadge>
+          <SkillBadge icon="🐧">Linux</SkillBadge>
+          <SkillBadge icon="📜">Bash</SkillBadge>
+
+          {/* Blockchain & Additional */}
+          <SkillBadge icon="🔗">Smart Contracts</SkillBadge>
+          <SkillBadge icon="📐">Web3</SkillBadge>
+          <SkillBadge icon="🛠️">Git</SkillBadge>
         </div>
 
         {/* CTA Buttons */}

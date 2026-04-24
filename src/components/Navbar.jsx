@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, Sparkles, ArrowRight, Zap } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function Navbar() {
@@ -7,48 +7,65 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [downloadHovered, setDownloadHovered] = useState(false);
+  const [hireHovered, setHireHovered] = useState(false);
   const navbarRef = useRef(null);
 
-  // CV data (yakuwe muri PDF)
-  const cvText = `UKOBUKEYE Mordekai
+  // Enhanced CV with "Innovative Developer" branding
+  const cvText = `✨ INNOVATIVE DEVELOPER PORTFOLIO ✨
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Profile
-Innovative and motivated software developer with strong experience in web development, AI, IoT, and blockchain technologies. Skilled at creating interactive web applications and smart solutions for agriculture, energy, waste management, and marketplaces. Strong problem- solving, teamwork, and project management skills.
+⚡ UKOBUKEYE MORDEKAI ⚡
+   Innovative Software Developer | Creative Technologist
 
-Skills
-Frontend: React, Redux, TailwindCSS, Material- UI, SCSS
-Backend: Node.js, Express, Python
-Database: MongoDB, PostgreSQL
-Other Technologies: Smart Contracts, IoT, AI, Chart.js, Recharts, Leaflet, Elasticsearch, Auth0
-Tools: Git, GitHub, VS Code
+📌 PROFILE
+─────────────────────────────────────────────────
+Passionate about pushing boundaries with modern web technologies,
+AI, and blockchain. Building solutions that combine elegance,
+performance, and real-world impact.
 
-Education
-Saint Laurent Gaseke TSS - Senior 6 / Level 5, Rwanda
+🛠️ TECH STACK
+─────────────────────────────────────────────────
+Frontend: React, Next.js, TailwindCSS, Three.js, Framer Motion
+Backend: Node.js, Python, FastAPI, GraphQL
+Database: MongoDB, PostgreSQL, Firebase
+Innovation: Web3, Smart Contracts, IoT, TensorFlow.js
+Tools: Git, Docker, AWS, Vercel
 
-Projects
-- AgriConnect Rwanda - Digital marketplace connecting Rwandan farmers with buyers to reduce post- harvest losses. Tech: React, Node.js, MongoDB, Mobile
-- Solar P2P Network - Peer- to- peer energy trading system allowing households to sell excess solar power. Tech: React, Smart Contracts, IoT, Real- time Trading
-- Smart Waste AI – AI route optimization for garbage collection based on fill levels and traffic. Tech: AI, Node.js
-- Crowd Predictor – Predicting bus occupancy rates using historical data for commuters. Tech: Python, API
-- School Management System – Comprehensive platform to manage students, teachers, attendance, and grades. Tech: React, Express, PostgreSQL, Tailwind
-- Job Finder Website – Smart job board with AI-powered recommendations and one-click applications. Tech: React, Elasticsearch, Node.js, Auth0
-- Movie App – Browse trending movies, view details, and save favorites using TMDB API. Tech: React, Redux, TMDB API, SCSS
-- Weather App Advanced – Hyper-local weather forecasts with interactive maps, hourly graphs, and severe weather alerts. Tech: React, Chart.js, OpenWeatherMap, Leaflet
-- Ecommerce Admin Dashboard – Dashboard to manage products, orders, customers, and sales analytics. Tech: React, Material-UI, Recharts
+🚀 INNOVATIVE PROJECTS
+─────────────────────────────────────────────────
+• AgriConnect Rwanda – AI-powered farming marketplace
+• Solar P2P Network – Blockchain energy trading platform
+• Smart Waste AI – IoT + ML waste management
+• Crowd Predictor – Predictive analytics for public transit
+• School Management System – Full-stack admin platform
+• Job Finder AI – Intelligent job matching engine
 
-Languages
-- Kinyarwanda: Fluent
-- English: Fluent
+🎓 EDUCATION & CERTIFICATIONS
+─────────────────────────────────────────────────
+Saint Laurent Gaseke TSS – Advanced CS
+• React Mastery
+• Blockchain Developer
+• AI Specialist
 
-References
-Available upon request`;
+🌐 LANGUAGES
+─────────────────────────────────────────────────
+Kinyarwanda (Native) | English (Fluent) | French (Intermediate)
+
+📫 LET'S CONNECT
+─────────────────────────────────────────────────
+Email: mordekai@innovative.dev | GitHub: @mordekai
+Portfolio: mordekai.dev
+
+“Innovation distinguishes between a leader and a follower.”
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
   const downloadCV = () => {
-    const blob = new Blob([cvText], { type: 'text/plain' });
+    const blob = new Blob(["\uFEFF" + cvText], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'UKOBUKEYE_Mordekai_CV.txt';
+    link.download = `Mordekai_Innovative_Developer_CV.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -59,7 +76,7 @@ Available upon request`;
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -70,56 +87,57 @@ Available upon request`;
   }, []);
 
   useEffect(() => {
+    let ticking = false;
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setMousePosition({ x: e.clientX, y: e.clientY });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const navItems = [
-    { label: 'Home', path: '/', end: true },
-    { label: 'About', path: '/about' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Resume', path: '/resume' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'Home', path: '/', end: true, icon: '🏠', color: '#2563EB' },
+    { label: 'About', path: '/about', icon: '🌟', color: '#3B82F6' },
+    { label: 'Projects', path: '/projects', icon: '💎', color: '#1D4ED8' },
+    { label: 'Resume', path: '/resume', icon: '📜', color: '#1E40AF' },
+    { label: 'Contact', path: '/contact', icon: '💌', color: '#2563EB' },
   ];
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
         :root {
-          --primary: #ff006e;
-          --primary-light: #ff1493;
-          --accent: #00f5ff;
-          --secondary: #8338ec;
-          --background: #0a0e27;
-          --surface: #16213e;
-          --text-primary: #ffffff;
-          --text-secondary: #b0b8d4;
-        }
-
-        @keyframes shimmer {
-          0% { background-position: -1000px 0; }
-          100% { background-position: 1000px 0; }
+          --blue-light: #EFF6FF;
+          --blue-bright: #3B82F6;
+          --blue-deep: #1E3A8A;
+          --white-pure: #FFFFFF;
+          --gray-soft: #F9FAFB;
+          --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+          --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
         }
 
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          50% { transform: translateY(-15px) translateX(10px); }
         }
 
-        @keyframes glow-pulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
+        @keyframes gentlePulse {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.05); }
         }
 
-        @keyframes slide-down {
+        @keyframes slideDown {
           from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-15px);
           }
           to {
             opacity: 1;
@@ -127,246 +145,345 @@ Available upon request`;
           }
         }
 
-        .navbar-glow {
-          position: absolute;
-          pointer-events: none;
-          width: 200px;
-          height: 200px;
-          background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-          border-radius: 50%;
-          opacity: 0.1;
-          filter: blur(60px);
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
-        .logo-text {
-          font-family: 'Syne', sans-serif;
-          font-weight: 700;
-          letter-spacing: -0.02em;
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
         }
 
-        .nav-link {
-          font-family: 'Space Mono', monospace;
+        .navbar {
+          transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .navbar-scrolled {
+          background: rgba(255, 255, 255, 0.92);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+          box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-transparent {
+          background: transparent;
+        }
+
+        .logo-gradient {
+          background: linear-gradient(120deg, #1E3A8A, #3B82F6, #2563EB);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          font-weight: 800;
+          transition: all 0.3s;
+        }
+
+        .logo-sub {
+          color: #4B5563;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+        }
+
+        .innovative-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: linear-gradient(120deg, #EFF6FF, #DBEAFE);
+          padding: 3px 10px;
+          border-radius: 40px;
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #1E40AF;
+          border: 1px solid rgba(59, 130, 246, 0.3);
+          margin-left: 8px;
+          white-space: nowrap;
+          transition: all 0.2s;
+        }
+
+        .innovative-badge:hover {
+          background: #DBEAFE;
+          transform: translateY(-1px);
+        }
+
+        .nav-link-item {
           position: relative;
+          font-family: 'Inter', sans-serif;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          border-radius: 40px;
+          padding: 0.5rem 1rem;
+          color: #1F2937;
         }
 
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, var(--primary), var(--accent));
-          transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .nav-link-item:hover {
+          background: rgba(59, 130, 246, 0.08);
+          color: #1E40AF;
         }
 
-        .nav-link:hover::after {
-          width: 100%;
-        }
-
-        .nav-link.active::after {
-          width: 100%;
-          opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-          .nav-link::after {
-            display: none;
-          }
+        .nav-link-item.active {
+          background: rgba(59, 130, 246, 0.12);
+          color: #2563EB;
+          font-weight: 600;
         }
 
         .cta-button {
-          position: relative;
-          font-family: 'Syne', sans-serif;
-          font-weight: 600;
-          letter-spacing: 0.5px;
+          background: linear-gradient(105deg, #1E3A8A, #3B82F6);
+          border: none;
+          transition: all 0.25s ease;
+          box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
         }
 
-        .cta-button::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, #ff006e, #00f5ff);
-          border-radius: 50px;
-          z-index: -1;
-          opacity: 0;
-          transition: opacity 0.3s ease;
+        .cta-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 20px -12px rgba(37, 99, 235, 0.4);
+          background: linear-gradient(105deg, #1E40AF, #2563EB);
         }
 
-        .cta-button:hover::before {
-          opacity: 1;
+        .download-btn {
+          transition: all 0.2s ease;
+          color: #4B5563;
         }
 
-        .cta-button::after {
-          content: '';
-          position: absolute;
-          inset: -2px;
-          background: linear-gradient(135deg, #ff006e, #00f5ff);
-          border-radius: 50px;
-          z-index: -2;
-          opacity: 0;
-          filter: blur(8px);
-          transition: opacity 0.3s ease;
+        .download-btn:hover {
+          color: #2563EB;
+          transform: scale(1.05);
         }
 
-        .cta-button:hover::after {
-          opacity: 0.5;
+        .mobile-menu {
+          animation: slideDown 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(59, 130, 246, 0.2);
+          border-radius: 32px;
+          margin: 0 16px;
+          overflow: hidden;
+          box-shadow: var(--shadow-md);
         }
 
-        .mobile-nav-item {
-          animation: slide-down 0.3s ease forwards;
+        .mobile-link {
+          transition: all 0.2s ease;
+          border-radius: 20px;
+          color: #1F2937;
         }
 
-        .mobile-nav-item:nth-child(1) { animation-delay: 0.05s; }
-        .mobile-nav-item:nth-child(2) { animation-delay: 0.1s; }
-        .mobile-nav-item:nth-child(3) { animation-delay: 0.15s; }
-        .mobile-nav-item:nth-child(4) { animation-delay: 0.2s; }
-        .mobile-nav-item:nth-child(5) { animation-delay: 0.25s; }
-        .mobile-nav-item:nth-child(6) { animation-delay: 0.3s; }
+        .mobile-link.active {
+          background: linear-gradient(105deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+          color: #2563EB;
+        }
+
+        .bg-shine {
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          background-size: 200% 100%;
+          animation: shimmer 3s infinite;
+        }
+
+        @keyframes spinOnce {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(180deg); }
+        }
+        .animate-spin-once {
+          animation: spinOnce 0.3s ease-out;
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.2s ease-out;
+        }
       `}</style>
 
       <nav
         ref={navbarRef}
-        className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
-          scrolled
-            ? 'bg-slate-950/90 backdrop-blur-xl border-slate-700/40 shadow-2xl'
-            : 'bg-slate-950/50 backdrop-blur-md border-slate-800/30'
+        className={`navbar fixed top-0 w-full z-50 transition-all duration-400 ${
+          scrolled ? 'navbar-scrolled' : 'navbar-transparent'
         }`}
       >
-        {/* Animated background gradient */}
+        {/* Animated blue orbs for depth */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div 
-            className="absolute top-1/2 left-1/4 w-96 h-96 bg-pink-500/15 rounded-full mix-blend-screen blur-3xl"
+          <div
+            className="absolute w-[500px] h-[500px] rounded-full"
             style={{
-              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-              transition: 'transform 0.3s ease-out',
+              background: 'radial-gradient(circle, rgba(59,130,246,0.15), rgba(37,99,235,0.05), transparent)',
+              left: mousePosition.x * 0.02,
+              top: mousePosition.y * 0.02,
+              transform: 'translate(-50%, -50%)',
+              filter: 'blur(60px)',
+              transition: 'all 0.2s ease-out',
             }}
           />
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-400/10 rounded-full mix-blend-screen blur-3xl animate-pulse" />
+          <div
+            className="absolute w-64 h-64 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(96,165,250,0.12), transparent)',
+              right: '5%',
+              top: '5%',
+              animation: 'float 14s ease-in-out infinite',
+              filter: 'blur(50px)',
+            }}
+          />
+          <div
+            className="absolute w-48 h-48 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(59,130,246,0.1), transparent)',
+              left: '10%',
+              bottom: '0%',
+              animation: 'float 12s ease-in-out infinite reverse',
+              filter: 'blur(40px)',
+            }}
+          />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 py-4 relative z-10">
-          <div className="flex justify-between items-center">
-            {/* Logo */}
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 relative z-10">
+          <div className="flex justify-between items-center h-16 sm:h-20">
+            {/* Logo with modern badge */}
             <Link to="/" className="group relative">
-              <div className="flex flex-col gap-0.5">
-                <span className="logo-text text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-500 to-cyan-400 transition-all duration-300 group-hover:from-pink-300 group-hover:via-pink-400 group-hover:to-cyan-300">
-                  UKOBUKEYE
-                </span>
-                <span className="text-xs font-light tracking-widest text-pink-500/60 uppercase transition-colors duration-300 group-hover:text-pink-400 font-mono">
-                  Mordekai • Innovative Developer
+              <div className="flex flex-col">
+                <div className="flex items-center flex-wrap gap-1">
+                  <span className="logo-gradient text-2xl sm:text-3xl font-black tracking-tight">
+                    UKOBUKEYE
+                  </span>
+                  <div className="innovative-badge">
+                    <Zap size={12} strokeWidth={2} />
+                    <span>Innovative Dev</span>
+                  </div>
+                </div>
+                <span className="logo-sub text-[11px] sm:text-xs font-medium tracking-[0.2em] transition-all duration-300 group-hover:tracking-[0.3em]">
+                  Mordekai • Creative Technologist
                 </span>
               </div>
-              <div className="absolute -inset-3 bg-gradient-to-r from-sky-600/0 via-sky-500/0 to-cyan-600/0 rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10 blur-lg" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/0 via-blue-400/10 to-blue-600/0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 blur-xl -z-10" />
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation - clean and modern */}
+            <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-white/40 backdrop-blur-sm rounded-full px-1 py-1 shadow-sm">
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
                   to={item.path}
                   end={item.end}
                   className={({ isActive }) =>
-                    `nav-link text-sm tracking-wide transition-colors duration-300 ${
-                      isActive ? 'text-pink-400 font-semibold' : 'text-slate-300 hover:text-cyan-400'
+                    `nav-link-item text-sm lg:text-base font-medium transition-all duration-200 ${
+                      isActive ? 'active' : ''
                     }`
                   }
+                  style={({ isActive }) => ({
+                    color: isActive ? item.color : '#374151',
+                  })}
                 >
-                  {item.label}
+                  <span className="flex items-center gap-2">
+                    <span className="text-base">{item.icon}</span>
+                    {item.label}
+                  </span>
                 </NavLink>
               ))}
             </div>
 
-            {/* Desktop CTA Buttons */}
+            {/* Desktop Actions - modern CTA */}
             <div className="hidden md:flex items-center gap-3">
-              {/* Download CV Button */}
-              <button
-                onClick={downloadCV}
-                className="relative p-2.5 text-slate-300 hover:text-cyan-400 transition-colors group"
-                aria-label="Download CV"
-                title="Download CV"
-              >
-                <Download size={20} strokeWidth={2} />
-                <span className="absolute inset-0 rounded-full bg-cyan-400/0 group-hover:bg-cyan-400/10 transition-colors duration-300" />
-              </button>
+              <div className="relative">
+                <button
+                  onClick={downloadCV}
+                  onMouseEnter={() => setDownloadHovered(true)}
+                  onMouseLeave={() => setDownloadHovered(false)}
+                  className="download-btn p-2.5 text-gray-600 hover:text-blue-600 transition-all duration-200 rounded-full hover:bg-blue-50"
+                  aria-label="Download CV"
+                >
+                  <Download size={20} strokeWidth={1.6} />
+                </button>
+                {downloadHovered && (
+                  <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 bg-white text-gray-800 text-xs rounded-full whitespace-nowrap shadow-lg border border-blue-200 font-medium">
+                    Download Portfolio
+                  </span>
+                )}
+              </div>
 
-              {/* Hire Me Button */}
               <Link
                 to="/hire-me"
-                className="cta-button relative px-7 py-2.5 text-white text-sm font-semibold rounded-full overflow-hidden transition-all duration-300 group"
+                onMouseEnter={() => setHireHovered(true)}
+                onMouseLeave={() => setHireHovered(false)}
+                className="cta-button relative px-5 py-2.5 rounded-full text-white text-sm font-semibold overflow-hidden group flex items-center gap-2 shadow-md"
               >
-                <span className="relative z-10 inline-block">
-                  Hire Me
-                  <span className="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </span>
+                <Sparkles size={16} className="group-hover:rotate-12 transition-transform duration-300" />
+                <span>Hire Me</span>
+                <ArrowRight
+                  size={16}
+                  className={`transition-all duration-300 ${
+                    hireHovered ? 'translate-x-1 opacity-100' : 'opacity-70'
+                  }`}
+                />
+                <div className="absolute inset-0 bg-shine opacity-30 group-hover:opacity-50 transition-opacity" />
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative z-20 p-2 text-pink-400 hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+              className="md:hidden relative z-20 p-2 text-gray-700 hover:text-blue-600 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-xl bg-white/70 backdrop-blur-sm shadow-sm"
               aria-label="Toggle menu"
-              aria-expanded={isOpen}
             >
               {isOpen ? (
-                <X size={24} strokeWidth={2.5} className="animate-spin-fast" />
+                <X size={24} strokeWidth={1.8} className="animate-spin-once" />
               ) : (
-                <Menu size={24} strokeWidth={2.5} />
+                <Menu size={24} strokeWidth={1.8} />
               )}
             </button>
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Mobile Navigation - sleek dropdown */}
           {isOpen && (
-            <div className="md:hidden absolute top-full left-0 right-0 bg-slate-950/95 backdrop-blur-xl border-t border-slate-700/40">
-              <div className="px-6 py-6 space-y-2">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    end={item.end}
-                    onClick={() => setIsOpen(false)}
-                    className={({ isActive }) =>
-                      `mobile-nav-item block px-4 py-3 rounded-lg font-mono text-sm transition-all duration-300 ${
-                        isActive
-                          ? 'bg-pink-500/20 text-pink-400 border-l-2 border-pink-400 pl-3'
-                          : 'text-slate-300 hover:bg-pink-500/10 hover:text-cyan-400'
-                      }`
-                    }
+            <div className="md:hidden absolute top-full left-0 right-0 pt-2 pb-4 px-3">
+              <div className="mobile-menu p-3">
+                <div className="space-y-1.5">
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      end={item.end}
+                      onClick={() => setIsOpen(false)}
+                      className={({ isActive }) =>
+                        `mobile-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
+                          isActive
+                            ? 'active'
+                            : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700'
+                        }`
+                      }
+                      style={({ isActive }) => ({
+                        color: isActive ? item.color : undefined,
+                      })}
+                    >
+                      <span className="text-xl">{item.icon}</span>
+                      {item.label}
+                    </NavLink>
+                  ))}
+                  
+                  <button
+                    onClick={() => {
+                      downloadCV();
+                      setIsOpen(false);
+                    }}
+                    className="flex items-center justify-center w-full gap-2 px-4 py-3 mt-2 bg-gray-50 text-gray-700 text-sm font-medium rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 border border-gray-100"
                   >
-                    {item.label}
-                  </NavLink>
-                ))}
-                {/* Mobile Download CV button */}
-                <button
-                  onClick={() => {
-                    downloadCV();
-                    setIsOpen(false);
-                  }}
-                  className="mobile-nav-item flex items-center justify-center w-full gap-2 px-4 py-3 bg-slate-800/50 text-slate-200 text-sm font-semibold rounded-lg hover:bg-slate-700/50 transition-all duration-300"
-                >
-                  <Download size={18} />
-                  Download CV
-                </button>
-                <Link
-                  to="/hire-me"
-                  onClick={() => setIsOpen(false)}
-                  className="mobile-nav-item block w-full mt-2 px-4 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 text-white text-sm font-semibold rounded-lg text-center hover:from-pink-600 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/30"
-                >
-                  Hire Me
-                </Link>
+                    <Download size={18} />
+                    Download CV
+                  </button>
+                  
+                  <Link
+                    to="/hire-me"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-center w-full gap-2 mt-2 px-4 py-3 bg-gradient-to-r from-blue-700 to-blue-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-blue-200"
+                  >
+                    <Sparkles size={18} />
+                    Hire Me
+                  </Link>
+                </div>
               </div>
             </div>
           )}
         </div>
       </nav>
 
-      {/* Mobile menu backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden animate-fadeIn"
           onClick={() => setIsOpen(false)}
           style={{ top: navbarHeight }}
         />
