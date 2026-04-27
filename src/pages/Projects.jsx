@@ -1,8 +1,8 @@
 import ProjectCard from '../components/ProjectCard';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaArrowUp } from 'react-icons/fa';
+import { FaArrowUp } from 'react-icons/fa';
 
 const projectsData = [
-  // Existing projects
+  // Original projects
   {
     title: 'Solar P2P Network',
     description: 'A peer-to-peer energy trading system allowing local households to sell excess solar power.',
@@ -22,16 +22,14 @@ const projectsData = [
     image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format',
     techStack: ['Python', 'API'],
   },
-  // New projects
+  // First batch of new projects
   {
     title: 'AgriConnect Rwanda',
     description: 'A digital marketplace connecting Rwandan farmers directly with buyers, reducing post‑harvest losses.',
     image: 'https://images.unsplash.com/photo-1523741543316-84b89f67996e?w=800&auto=format',
     techStack: ['React', 'Node.js', 'MongoDB', 'Mobile'],
-    // ⬇️ Ibi ni byongeweho kuri AgriConnect gusa
-    location: 'Rwanda',                         // Urugero rw'ahantu
-    github: 'https://github.com/your-repo/agriconnect', // Link ya GitHub
-    // Ushobora no kongeramo linkedin, twitter, etc.
+    location: 'Rwanda',
+    github: 'https://github.com/your-repo/agriconnect',
   },
   {
     title: 'School Management System',
@@ -62,6 +60,96 @@ const projectsData = [
     description: 'Full‑featured dashboard to manage products, orders, customers, and sales analytics.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format',
     techStack: ['React', 'Material‑UI', 'Recharts', 'Redux Toolkit'],
+  },
+  // Second batch (IoT + learning + health)
+  {
+    title: 'Smart Irrigation System',
+    description: 'IoT-based system that monitors soil moisture and weather forecasts to automate irrigation, saving water and increasing crop yield.',
+    image: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&auto=format',
+    techStack: ['Arduino', 'React Native', 'Node.js', 'MQTT'],
+    link: '/smart-irrigation',
+  },
+  {
+    title: 'E-Learning Platform',
+    description: 'Interactive online learning platform with live classes, quizzes, progress tracking, and certification for students and professionals.',
+    image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&auto=format',
+    techStack: ['Next.js', 'TypeScript', 'Prisma', 'WebRTC'],
+    github: 'https://github.com/your-repo/elearning-platform',
+  },
+  {
+    title: 'Health Tracker App',
+    description: 'Mobile-friendly health dashboard that tracks steps, calories, sleep, and heart rate, with personalized insights and weekly reports.',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format',
+    techStack: ['Flutter', 'Firebase', 'HealthKit API', 'TensorFlow Lite'],
+    link: '/health-tracker',
+  },
+  // Third batch (blockchain + telemedicine + carbon)
+  {
+    title: 'Blockchain Land Registry',
+    description: 'Decentralized land title registry using blockchain to prevent fraud and ensure transparent property transfers in emerging economies.',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format',
+    techStack: ['Solidity', 'Ethereum', 'IPFS', 'React'],
+    github: 'https://github.com/your-repo/land-registry',
+  },
+  {
+    title: 'Telemedicine Consult Hub',
+    description: 'Secure video consultation platform with prescription management, appointment scheduling, and EHR integration for remote healthcare.',
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format',
+    techStack: ['WebRTC', 'Node.js', 'PostgreSQL', 'Twilio'],
+    link: '/telemedicine',
+  },
+  {
+    title: 'Carbon Footprint Tracker',
+    description: 'Web app that calculates daily carbon emissions based on travel, diet, and energy use, offering personalized reduction tips and offsets.',
+    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format',
+    techStack: ['Vue.js', 'D3.js', 'Express', 'MongoDB'],
+    github: 'https://github.com/your-repo/carbon-tracker',
+  },
+  // Fourth batch (disaster, freelance, drone)
+  {
+    title: 'AI-Powered Disaster Response',
+    description: 'Real-time flood and earthquake prediction using satellite imagery and social media data, with automated emergency resource allocation.',
+    image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f3c5?w=800&auto=format',
+    techStack: ['TensorFlow', 'Python', 'Satellite API', 'Twilio'],
+    github: 'https://github.com/your-repo/disaster-response',
+    link: '/disaster-response',
+  },
+  {
+    title: 'Decentralized Freelance Marketplace',
+    description: 'Blockchain-based platform for freelancers with smart contract escrow, reputation scoring, and instant multi-currency payments.',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed2f1b8f6?w=800&auto=format',
+    techStack: ['Solana', 'Next.js', 'IPFS', 'RainbowKit'],
+    github: 'https://github.com/your-repo/deco-freelance',
+  },
+  {
+    title: 'Autonomous Drone Delivery System',
+    description: 'End-to-end simulation and control system for urban drone delivery, including path planning, obstacle avoidance, and fleet management.',
+    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&auto=format',
+    techStack: ['ROS', 'Python', 'React', 'WebGL'],
+    link: '/drone-delivery',
+  },
+  // Fifth batch (software development: microservices, logging, GraphQL)
+  {
+    title: 'Microservices Orchestrator',
+    description: 'Production-grade service mesh with auto-scaling, circuit breaking, and distributed tracing for cloud-native applications.',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format',
+    techStack: ['Kubernetes', 'Istio', 'Go', 'gRPC'],
+    github: 'https://github.com/your-repo/micro-orchestrator',
+    link: '/microservices',
+  },
+  {
+    title: 'Real-Time Log Aggregator',
+    description: 'High-performance logging pipeline with search, alerting, and visualization for debugging distributed systems at scale.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format',
+    techStack: ['Kafka', 'Elasticsearch', 'Logstash', 'Kibana'],
+    github: 'https://github.com/your-repo/log-aggregator',
+  },
+  {
+    title: 'GraphQL Federation Gateway',
+    description: 'Unified API gateway that composes multiple GraphQL services, providing a single endpoint with automatic query planning and caching.',
+    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format',
+    techStack: ['Apollo Federation', 'Node.js', 'Redis', 'Docker'],
+    link: '/graphql-gateway',
   },
 ];
 
